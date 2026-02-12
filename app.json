@@ -1,0 +1,17 @@
+{
+  "expo": {
+    "name": "Study Spot",
+    "slug": "study-spot",
+    "version": "1.0.0",
+    "orientation": "portrait",
+    "userInterfaceStyle": "light",
+    "splash": {
+      "resizeMode": "contain",
+      "backgroundColor": "#1a365d"
+    },
+    "android": {
+      "backgroundColor": "#1a365d",
+      "package": "com.studyspot.app"
+    }
+  }
+}

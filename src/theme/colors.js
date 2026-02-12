@@ -1,0 +1,17 @@
+export default {
+  sidebar: '#1a365d',
+  sidebarLight: '#2c5282',
+  primary: '#3182ce',
+  primaryDark: '#2b6cb0',
+  white: '#ffffff',
+  background: '#f7fafc',
+  card: '#ffffff',
+  border: '#e2e8f0',
+  text: '#1a202c',
+  textSecondary: '#718096',
+  placeholder: '#a0aec0',
+  success: '#38a169',
+  purple: '#805ad5',
+  gray: '#718096',
+  grayLight: '#e2e8f0',
+};
