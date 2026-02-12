@@ -42,3 +42,21 @@ Then press **a** for Android emulator or scan the QR code with the Expo Go app o
 - Mock data for groups, posts, and messages (no backend yet)
 
 All UI is built to match the provided wireframes (Login, Home, Discovery, Group-Chat, Account).
+
+## Publish to GitHub
+
+The project is already a git repo with an initial commit. To put it on a new GitHub repo:
+
+1. **Create a new repo on GitHub**  
+   Go to [github.com/new](https://github.com/new). Name it e.g. `study-spot`, leave “Add a README” **unchecked**, then click **Create repository**.
+
+2. **Add the remote and push** (replace `YOUR_USERNAME` and `study-spot` if you used a different repo name):
+
+   ```bash
+   cd "/Users/skyler/Hackathon Project/study-spot"
+   git remote add origin https://github.com/YOUR_USERNAME/study-spot.git
+   git branch -M main
+   git push -u origin main
+   ```
+
+   If you use SSH: `git remote add origin git@github.com:YOUR_USERNAME/study-spot.git` then run the same `git push` commands.
