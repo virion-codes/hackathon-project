@@ -27,7 +27,21 @@ npx expo start
 
 Or install [Watchman](https://facebook.github.io/watchman/) (`brew install watchman`) so Metro uses fewer watchers.
 
-Then press **a** for Android emulator or scan the QR code with the Expo Go app on your Samsung phone.
+Then press **a** for Android emulator, **i** for iOS simulator, or scan the QR code with the Expo Go app on your Samsung phone.
+
+### iOS Simulator not working
+
+If pressing **i** fails with “Can't determine id of Simulator app” or no simulator is found:
+
+1. **Install an iOS Simulator runtime**  
+   Open **Xcode** → **Settings** (⌘,) → **Platforms** (or **Components**). Under **iOS**, click **+** or **Get** to download a simulator runtime (e.g. iOS 17 or 18).
+
+2. **Point the command line to Xcode** (if needed):  
+   `sudo xcode-select -s /Applications/Xcode.app`
+
+3. Restart the terminal, run `npx expo start` again, then press **i**.
+
+You can also run the app on a physical **iPhone** by installing **Expo Go** from the App Store and scanning the QR code—no simulator required.
 
 ## Run on device with Expo Go
 

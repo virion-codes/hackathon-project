@@ -7,6 +7,7 @@ import {
   StyleSheet,
   KeyboardAvoidingView,
   Platform,
+  Alert,
 } from 'react-native';
 import colors from '../theme/colors';
 
@@ -48,7 +49,10 @@ export default function LoginScreen({ onSignIn }) {
           >
             <Text style={styles.buttonText}>Sign In</Text>
           </TouchableOpacity>
-          <TouchableOpacity style={styles.forgot}>
+          <TouchableOpacity
+            style={styles.forgot}
+            onPress={() => Alert.alert('Forgot password?', 'A reset link would be sent to your email. (Demo)')}
+          >
             <Text style={styles.forgotText}>Forgot password?</Text>
           </TouchableOpacity>
         </View>

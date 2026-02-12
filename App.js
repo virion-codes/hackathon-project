@@ -4,6 +4,7 @@ import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { View, StyleSheet } from 'react-native';
 import { AuthProvider, useAuth } from './src/context/AuthContext';
+import { GroupsProvider } from './src/context/GroupsContext';
 import LoginScreen from './src/screens/LoginScreen';
 import HomeScreen from './src/screens/HomeScreen';
 import DiscoveryScreen from './src/screens/DiscoveryScreen';
@@ -72,9 +73,11 @@ function RootNavigator() {
 export default function App() {
   return (
     <AuthProvider>
-      <NavigationContainer>
-        <RootNavigator />
-      </NavigationContainer>
+      <GroupsProvider>
+        <NavigationContainer>
+          <RootNavigator />
+        </NavigationContainer>
+      </GroupsProvider>
     </AuthProvider>
   );
 }

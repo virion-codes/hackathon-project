@@ -44,7 +44,7 @@ export default function HomeScreen() {
         const parent = navigation.getParent();
         (parent || navigation).navigate('GroupChat', { groupId: g.id });
       }}
-          onProfile={() => navigation.navigate('Account')}
+          onProfile={() => navigation.navigate('AccountTab')}
         />
       )}
       <View style={styles.main}>

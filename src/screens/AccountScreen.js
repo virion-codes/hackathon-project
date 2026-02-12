@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, Text, StyleSheet, ScrollView, TouchableOpacity } from 'react-native';
+import { View, Text, StyleSheet, ScrollView, TouchableOpacity, Alert } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import GroupSidebar from '../components/GroupSidebar';
 import colors from '../theme/colors';
@@ -41,16 +41,34 @@ export default function AccountScreen() {
         </View>
         <ScrollView style={styles.scroll} contentContainerStyle={styles.scrollContent}>
           <Text style={styles.sectionTitle}>My Account</Text>
-          <Row label="Account & Security" onPress={() => {}} />
+          <Row
+            label="Account & Security"
+            onPress={() => Alert.alert('Account & Security', 'Change password, email, and security options. (Coming soon)')}
+          />
           <View style={styles.separator} />
           <Text style={styles.sectionTitle}>Settings</Text>
-          <Row label="Notifications Settings" onPress={() => {}} />
-          <Row label="Privacy Settings" onPress={() => {}} />
+          <Row
+            label="Notifications Settings"
+            onPress={() => Alert.alert('Notifications', 'Configure push and in-app notifications. (Coming soon)')}
+          />
+          <Row
+            label="Privacy Settings"
+            onPress={() => Alert.alert('Privacy', 'Control who can see your profile and groups. (Coming soon)')}
+          />
           <View style={styles.separator} />
           <Text style={styles.sectionTitle}>Support</Text>
-          <Row label="Help Centre" onPress={() => {}} />
-          <Row label="Community Rules" onPress={() => {}} />
-          <Row label="About" onPress={() => {}} />
+          <Row
+            label="Help Centre"
+            onPress={() => Alert.alert('Help Centre', 'FAQs and contact support. (Coming soon)')}
+          />
+          <Row
+            label="Community Rules"
+            onPress={() => Alert.alert('Community Rules', 'Be respectful. No spam. Study spots are for in-person meetups only.')}
+          />
+          <Row
+            label="About"
+            onPress={() => Alert.alert('Study Spot', 'Version 1.0.0\nBalance social and school life by studying together in groups.')}
+          />
           <View style={styles.separator} />
           <TouchableOpacity style={styles.signOutBtn} onPress={signOut}>
             <Text style={styles.signOutText}>Sign Out</Text>
