@@ -27,7 +27,9 @@ npx expo start
 
 Or install [Watchman](https://facebook.github.io/watchman/) (`brew install watchman`) so Metro uses fewer watchers.
 
-Then press **a** for Android emulator, **i** for iOS simulator, or scan the QR code with the Expo Go app on your Samsung phone.
+Then press **a** for Android emulator, **i** for iOS simulator, or scan the QR code to open in Expo Go.
+
+**Important – QR code scanning on iOS & Android:** To avoid "no usable data found", **open the Expo Go app first**, then use **"Scan QR code"** from inside Expo Go (do not use the system Camera app). If the QR code still fails, run `npm run start:tunnel` instead for a tunnel connection.
 
 ### iOS Simulator not working
 
@@ -51,7 +53,7 @@ You can also run the app on a physical **iPhone** by installing **Expo Go** from
 
 ## Tech stack
 
-- **Expo SDK 50** + **React Native**
+- **Expo SDK 54** + **React Native**
 - **React Navigation** (stack + bottom tabs)
 - Mock data for groups, posts, and messages (no backend yet)
 

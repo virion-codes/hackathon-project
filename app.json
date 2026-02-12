@@ -5,6 +5,7 @@
     "version": "1.0.0",
     "orientation": "portrait",
     "userInterfaceStyle": "light",
+    "scheme": "exp",
     "splash": {
       "resizeMode": "contain",
       "backgroundColor": "#1a365d"
@@ -12,6 +13,9 @@
     "android": {
       "backgroundColor": "#1a365d",
       "package": "com.studyspot.app"
+    },
+    "ios": {
+      "bundleIdentifier": "com.studyspot.app"
     }
   }
 }
