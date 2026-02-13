@@ -9,6 +9,7 @@ import {
   Alert,
   KeyboardAvoidingView,
   Platform,
+  ScrollView,
 } from 'react-native';
 import colors from '../theme/colors';
 import { useGroups } from '../context/GroupsContext';
@@ -17,6 +18,9 @@ export default function GroupSidebar({ currentGroupId, onSelectGroup, onProfile,
   const { groups, addGroup, updateGroup, deleteGroup } = useGroups();
   const [createModalVisible, setCreateModalVisible] = useState(false);
   const [newGroupName, setNewGroupName] = useState('');
+  const [newGroupDesc, setNewGroupDesc] = useState('');
+  const [newGroupInviteCode, setNewGroupInviteCode] = useState('');
+  const [newGroupPrivacy, setNewGroupPrivacy] = useState('public');
   const [editModalVisible, setEditModalVisible] = useState(false);
   const [editingGroup, setEditingGroup] = useState(null);
   const [editName, setEditName] = useState('');
@@ -24,6 +28,9 @@ export default function GroupSidebar({ currentGroupId, onSelectGroup, onProfile,
   const handleCreateGroup = () => {
     const group = addGroup(newGroupName);
     setNewGroupName('');
+    setNewGroupDesc('');
+    setNewGroupInviteCode('');
+    setNewGroupPrivacy('public');
     setCreateModalVisible(false);
     if (group) {
       Alert.alert('Group created', `"${group.name}" is ready. Tap it to open.`);
@@ -81,20 +88,37 @@ export default function GroupSidebar({ currentGroupId, onSelectGroup, onProfile,
       <TouchableOpacity style={styles.profileCircle} onPress={onProfile}>
         <Text style={styles.profileLetter}>U</Text>
       </TouchableOpacity>
-      {groups.map((group) => (
-        <TouchableOpacity
-          key={group.id}
-          style={[
-            styles.groupCircle,
-            { backgroundColor: group.color },
-            currentGroupId === group.id && styles.groupCircleActive,
-          ]}
-          onPress={() => onSelectGroup(group)}
-          onLongPress={() => onGroupLongPress(group)}
-        >
-          <Text style={styles.groupLetter}>{group.icon}</Text>
-        </TouchableOpacity>
-      ))}
+      <ScrollView
+        style={styles.groupsScroll}
+        contentContainerStyle={styles.groupsScrollContent}
+        showsVerticalScrollIndicator={false}
+      >
+        {groups.map((group) => (
+          <TouchableOpacity
+            key={group.id}
+            style={[
+              styles.groupRow,
+              currentGroupId === group.id && styles.groupRowActive,
+            ]}
+            onPress={() => onSelectGroup(group)}
+            onLongPress={() => onGroupLongPress(group)}
+            activeOpacity={0.8}
+          >
+            <View
+              style={[
+                styles.groupCircle,
+                { backgroundColor: group.color },
+                currentGroupId === group.id && styles.groupCircleActive,
+              ]}
+            >
+              <Text style={styles.groupLetter}>{group.icon}</Text>
+            </View>
+            <Text style={styles.groupName} numberOfLines={1} ellipsizeMode="tail">
+              {group.name}
+            </Text>
+          </TouchableOpacity>
+        ))}
+      </ScrollView>
       <TouchableOpacity
         style={styles.createGroupBtn}
         onPress={() => setCreateModalVisible(true)}
@@ -115,15 +139,49 @@ export default function GroupSidebar({ currentGroupId, onSelectGroup, onProfile,
         >
           <View style={styles.modalContent}>
             <Text style={styles.modalTitle}>Create your own group</Text>
-            <Text style={styles.label}>Group name</Text>
-            <TextInput
-              style={styles.input}
-              placeholder="e.g. Chem 105 Study"
-              placeholderTextColor={colors.placeholder}
-              value={newGroupName}
-              onChangeText={setNewGroupName}
-              autoFocus
-            />
+            <ScrollView style={styles.modalScroll} showsVerticalScrollIndicator={false}>
+              <Text style={styles.label}>Group name</Text>
+              <TextInput
+                style={styles.input}
+                placeholder="e.g. Chem 105 Study"
+                placeholderTextColor={colors.placeholder}
+                value={newGroupName}
+                onChangeText={setNewGroupName}
+                autoFocus
+              />
+              <Text style={styles.label}>Description</Text>
+              <TextInput
+                style={[styles.input, styles.inputMultiline]}
+                placeholder="What's this group about?"
+                placeholderTextColor={colors.placeholder}
+                value={newGroupDesc}
+                onChangeText={setNewGroupDesc}
+                multiline
+              />
+              <Text style={styles.label}>Invite code (optional)</Text>
+              <TextInput
+                style={styles.input}
+                placeholder="e.g. CHEM105-2024"
+                placeholderTextColor={colors.placeholder}
+                value={newGroupInviteCode}
+                onChangeText={setNewGroupInviteCode}
+              />
+              <Text style={styles.label}>Privacy</Text>
+              <View style={styles.privacyRow}>
+                <TouchableOpacity
+                  style={[styles.privacyOption, newGroupPrivacy === 'public' && styles.privacyOptionActive]}
+                  onPress={() => setNewGroupPrivacy('public')}
+                >
+                  <Text style={[styles.privacyText, newGroupPrivacy === 'public' && styles.privacyTextActive]}>Public</Text>
+                </TouchableOpacity>
+                <TouchableOpacity
+                  style={[styles.privacyOption, newGroupPrivacy === 'private' && styles.privacyOptionActive]}
+                  onPress={() => setNewGroupPrivacy('private')}
+                >
+                  <Text style={[styles.privacyText, newGroupPrivacy === 'private' && styles.privacyTextActive]}>Private</Text>
+                </TouchableOpacity>
+              </View>
+            </ScrollView>
             <View style={styles.modalActions}>
               <TouchableOpacity
                 style={styles.cancelBtn}
@@ -190,27 +248,46 @@ export default function GroupSidebar({ currentGroupId, onSelectGroup, onProfile,
 
 const styles = StyleSheet.create({
   sidebar: {
-    width: 56,
+    width: 200,
     backgroundColor: colors.sidebar,
-    alignItems: 'center',
     paddingTop: 48,
     paddingBottom: 24,
   },
   profileCircle: {
-    width: 44,
-    height: 44,
-    borderRadius: 22,
+    width: 56,
+    height: 56,
+    borderRadius: 28,
     backgroundColor: colors.sidebarLight,
     alignItems: 'center',
     justifyContent: 'center',
     marginBottom: 16,
+    marginHorizontal: 12,
     borderWidth: 2,
     borderColor: colors.sidebar,
   },
   profileLetter: {
     color: colors.white,
-    fontSize: 18,
+    fontSize: 22,
     fontWeight: '700',
+  },
+  groupsScroll: {
+    flex: 1,
+    marginBottom: 8,
+  },
+  groupsScrollContent: {
+    paddingHorizontal: 12,
+    paddingBottom: 16,
+  },
+  groupRow: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    paddingVertical: 8,
+    paddingHorizontal: 8,
+    marginBottom: 4,
+    borderRadius: 10,
+  },
+  groupRowActive: {
+    backgroundColor: 'rgba(255,255,255,0.12)',
   },
   groupCircle: {
     width: 40,
@@ -218,7 +295,7 @@ const styles = StyleSheet.create({
     borderRadius: 20,
     alignItems: 'center',
     justifyContent: 'center',
-    marginBottom: 10,
+    marginRight: 10,
   },
   groupLetter: {
     color: colors.white,
@@ -226,34 +303,58 @@ const styles = StyleSheet.create({
     fontWeight: '700',
   },
   groupCircleActive: {
-    borderRadius: 12,
+    borderRadius: 10,
+  },
+  groupName: {
+    flex: 1,
+    fontSize: 14,
+    fontWeight: '600',
+    color: colors.white,
+    opacity: 0.95,
   },
   createGroupBtn: {
     position: 'absolute',
     bottom: 24,
-    width: 28,
-    height: 28,
-    borderRadius: 6,
-    backgroundColor: colors.text,
+    left: 12,
+    width: 40,
+    height: 40,
+    borderRadius: 10,
+    backgroundColor: colors.sidebarLight,
     alignItems: 'center',
     justifyContent: 'center',
   },
   createGroupIcon: {
     color: colors.white,
-    fontSize: 20,
+    fontSize: 24,
     fontWeight: '600',
-    lineHeight: 22,
+    lineHeight: 26,
   },
   modalOverlay: {
     flex: 1,
     backgroundColor: 'rgba(0,0,0,0.5)',
     justifyContent: 'center',
+    alignItems: 'center',
     padding: 24,
   },
   modalContent: {
+    alignSelf: 'center',
+    width: '100%',
+    maxWidth: 320,
+    maxHeight: '80%',
     backgroundColor: colors.white,
-    borderRadius: 16,
-    padding: 20,
+    borderRadius: 14,
+    padding: 18,
+    borderWidth: 1,
+    borderColor: colors.border,
+    shadowColor: '#000',
+    shadowOpacity: 0.15,
+    shadowRadius: 24,
+    shadowOffset: { width: 0, height: 8 },
+    elevation: 12,
+  },
+  modalScroll: {
+    maxHeight: 320,
+    marginBottom: 16,
   },
   modalTitle: {
     fontSize: 18,
@@ -270,12 +371,39 @@ const styles = StyleSheet.create({
   input: {
     borderWidth: 1,
     borderColor: colors.border,
-    borderRadius: 10,
-    paddingHorizontal: 14,
-    paddingVertical: 12,
-    fontSize: 16,
+    borderRadius: 8,
+    paddingHorizontal: 12,
+    paddingVertical: 10,
+    fontSize: 15,
     color: colors.text,
-    marginBottom: 20,
+    marginBottom: 14,
+  },
+  inputMultiline: {
+    minHeight: 64,
+    textAlignVertical: 'top',
+  },
+  privacyRow: {
+    flexDirection: 'row',
+    gap: 10,
+    marginBottom: 8,
+  },
+  privacyOption: {
+    flex: 1,
+    paddingVertical: 10,
+    borderRadius: 8,
+    alignItems: 'center',
+    backgroundColor: colors.surfaceSubtle,
+  },
+  privacyOptionActive: {
+    backgroundColor: colors.primary,
+  },
+  privacyText: {
+    fontSize: 14,
+    fontWeight: '600',
+    color: colors.textSecondary,
+  },
+  privacyTextActive: {
+    color: colors.white,
   },
   modalActions: {
     flexDirection: 'row',

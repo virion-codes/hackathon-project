@@ -15,6 +15,24 @@ import colors from './src/theme/colors';
 const Stack = createNativeStackNavigator();
 const Tab = createBottomTabNavigator();
 
+function HomeStack() {
+  return (
+    <Stack.Navigator screenOptions={{ headerShown: false }}>
+      <Stack.Screen name="HomeScreen" component={HomeScreen} />
+      <Stack.Screen name="GroupChat" component={GroupChatScreen} />
+    </Stack.Navigator>
+  );
+}
+
+function DiscoveryStack() {
+  return (
+    <Stack.Navigator screenOptions={{ headerShown: false }}>
+      <Stack.Screen name="DiscoveryScreen" component={DiscoveryScreen} />
+      <Stack.Screen name="GroupChat" component={GroupChatScreen} />
+    </Stack.Navigator>
+  );
+}
+
 function TabNavigator() {
   return (
     <Tab.Navigator
@@ -22,12 +40,30 @@ function TabNavigator() {
         headerShown: false,
         tabBarStyle: styles.tabBar,
         tabBarActiveTintColor: colors.primary,
-        tabBarInactiveTintColor: colors.textSecondary,
+        tabBarInactiveTintColor: colors.textMuted,
         tabBarLabelStyle: { fontSize: 12, fontWeight: '600' },
       }}
     >
-      <Tab.Screen name="HomeTab" component={HomeScreen} options={{ tabBarLabel: 'Home' }} />
-      <Tab.Screen name="DiscoveryTab" component={DiscoveryScreen} options={{ tabBarLabel: 'Discovery' }} />
+      <Tab.Screen
+        name="HomeTab"
+        component={HomeStack}
+        options={{ tabBarLabel: 'Home' }}
+        listeners={({ navigation }) => ({
+          tabPress: () => {
+            navigation.navigate('HomeTab', { screen: 'HomeScreen' });
+          },
+        })}
+      />
+      <Tab.Screen
+        name="DiscoveryTab"
+        component={DiscoveryStack}
+        options={{ tabBarLabel: 'Discovery' }}
+        listeners={({ navigation }) => ({
+          tabPress: () => {
+            navigation.navigate('DiscoveryTab', { screen: 'DiscoveryScreen' });
+          },
+        })}
+      />
       <Tab.Screen name="AccountTab" component={AccountScreen} options={{ tabBarLabel: 'Account' }} />
     </Tab.Navigator>
   );
@@ -37,7 +73,6 @@ function MainStack() {
   return (
     <Stack.Navigator screenOptions={{ headerShown: false }}>
       <Stack.Screen name="Tabs" component={TabNavigator} />
-      <Stack.Screen name="GroupChat" component={GroupChatScreen} />
     </Stack.Navigator>
   );
 }
@@ -85,7 +120,12 @@ export default function App() {
 const styles = StyleSheet.create({
   tabBar: {
     backgroundColor: colors.white,
-    borderTopColor: colors.border,
+    borderTopColor: colors.borderStrong,
     borderTopWidth: 1,
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: -2 },
+    shadowOpacity: 0.06,
+    shadowRadius: 8,
+    elevation: 8,
   },
 });
