@@ -71,7 +71,7 @@ export default function DiscoveryScreen() {
           const parent = navigation.getParent();
           (parent || navigation).navigate('GroupChat', { groupId: g.id });
         }}
-          onProfile={() => navigation.navigate('AccountTab')}
+          onProfile={() => navigation.getParent()?.getParent()?.navigate('AccountTab')}
         />
       )}
       <View style={styles.main}>
@@ -221,25 +221,27 @@ const styles = StyleSheet.create({
     paddingVertical: 16,
     backgroundColor: colors.white,
     borderBottomWidth: 1,
-    borderBottomColor: colors.border,
+    borderBottomColor: colors.borderStrong,
   },
   menuBtn: { padding: 8, marginRight: 8 },
   menuLine: {
     width: 20,
     height: 2,
-    backgroundColor: colors.textSecondary,
+    backgroundColor: colors.text,
     marginVertical: 2,
     borderRadius: 1,
   },
   menuLineShort: { width: 14 },
   searchInput: {
     flex: 1,
-    backgroundColor: colors.grayLight,
-    borderRadius: 14,
+    backgroundColor: colors.surfaceSubtle,
+    borderRadius: 12,
     paddingHorizontal: 16,
     paddingVertical: 12,
     fontSize: 16,
     color: colors.text,
+    borderWidth: 1,
+    borderColor: colors.border,
   },
   searchIcon: {
     marginLeft: 8,
@@ -251,15 +253,15 @@ const styles = StyleSheet.create({
   card: {
     flexDirection: 'row',
     backgroundColor: colors.white,
-    borderRadius: 16,
+    borderRadius: 12,
     padding: 16,
     marginBottom: 14,
     borderWidth: 1,
     borderColor: colors.border,
     shadowColor: '#000',
-    shadowOpacity: 0.07,
+    shadowOpacity: 0.06,
     shadowRadius: 8,
-    shadowOffset: { width: 0, height: 4 },
+    shadowOffset: { width: 0, height: 2 },
     elevation: 3,
   },
   cardIcon: {
@@ -289,8 +291,8 @@ const styles = StyleSheet.create({
   },
   cardInterests: {
     fontSize: 13,
-    color: colors.placeholder,
-    marginTop: 2,
+    color: colors.textMuted,
+    marginTop: 4,
   },
   modalOverlay: {
     flex: 1,
@@ -346,8 +348,8 @@ const styles = StyleSheet.create({
     borderColor: colors.primary,
   },
   modalButtonPending: {
-    backgroundColor: colors.grayLight,
-    borderColor: colors.border,
+    backgroundColor: colors.surfaceSubtle,
+    borderColor: colors.borderStrong,
   },
   modalButtonDanger: {
     backgroundColor: '#dc2626',

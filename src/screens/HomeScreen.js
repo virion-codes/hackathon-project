@@ -44,7 +44,7 @@ export default function HomeScreen() {
         const parent = navigation.getParent();
         (parent || navigation).navigate('GroupChat', { groupId: g.id });
       }}
-          onProfile={() => navigation.navigate('AccountTab')}
+          onProfile={() => navigation.getParent()?.getParent()?.navigate('AccountTab')}
         />
       )}
       <View style={styles.main}>
@@ -89,7 +89,7 @@ const styles = StyleSheet.create({
     paddingVertical: 14,
     backgroundColor: colors.white,
     borderBottomWidth: 1,
-    borderBottomColor: colors.border,
+    borderBottomColor: colors.borderStrong,
   },
   menuBtn: {
     padding: 8,
@@ -98,7 +98,7 @@ const styles = StyleSheet.create({
   menuLine: {
     width: 20,
     height: 2,
-    backgroundColor: colors.textSecondary,
+    backgroundColor: colors.text,
     marginVertical: 2,
     borderRadius: 1,
   },
@@ -107,13 +107,16 @@ const styles = StyleSheet.create({
   },
   headerTitleWrap: {
     flex: 1,
-    backgroundColor: colors.grayLight,
+    backgroundColor: colors.surfaceSubtle,
     borderRadius: 20,
     paddingVertical: 10,
     paddingHorizontal: 16,
+    borderWidth: 1,
+    borderColor: colors.border,
   },
   headerTitle: {
     fontSize: 16,
+    fontWeight: '600',
     color: colors.text,
     textAlign: 'center',
   },
@@ -126,11 +129,16 @@ const styles = StyleSheet.create({
   },
   postPreview: {
     backgroundColor: colors.white,
-    borderRadius: 16,
-    padding: 14,
-    marginBottom: 10,
+    borderRadius: 12,
+    padding: 16,
+    marginBottom: 12,
     borderWidth: 1,
     borderColor: colors.border,
+    shadowColor: '#000',
+    shadowOpacity: 0.04,
+    shadowRadius: 6,
+    shadowOffset: { width: 0, height: 2 },
+    elevation: 2,
   },
   postPreviewTitle: {
     fontSize: 15,
@@ -140,6 +148,6 @@ const styles = StyleSheet.create({
   postPreviewMeta: {
     fontSize: 13,
     color: colors.textSecondary,
-    marginTop: 4,
+    marginTop: 6,
   },
 });

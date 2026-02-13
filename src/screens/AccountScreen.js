@@ -4,6 +4,7 @@ import { useNavigation } from '@react-navigation/native';
 import GroupSidebar from '../components/GroupSidebar';
 import colors from '../theme/colors';
 import { useAuth } from '../context/AuthContext';
+import { MOCK_ACCOUNT_ROWS } from '../data/mockData';
 
 const Row = ({ label, onPress }) => (
   <TouchableOpacity style={styles.row} onPress={onPress} activeOpacity={0.7}>
@@ -22,9 +23,9 @@ export default function AccountScreen() {
       {sidebarVisible && (
         <GroupSidebar
           onSelectGroup={(g) => {
-          const parent = navigation.getParent();
-          parent?.navigate('GroupChat', { groupId: g.id });
-        }}
+            const tabNav = navigation.getParent();
+            tabNav?.navigate('HomeTab', { screen: 'GroupChat', params: { groupId: g.id } });
+          }}
           onProfile={() => {}}
         />
       )}
@@ -40,34 +41,26 @@ export default function AccountScreen() {
           </TouchableOpacity>
         </View>
         <ScrollView style={styles.scroll} contentContainerStyle={styles.scrollContent}>
-          <Text style={styles.sectionTitle}>My Account</Text>
-          <Row
-            label="Account & Security"
-            onPress={() => Alert.alert('Account & Security', 'Change password, email, and security options. (Coming soon)')}
-          />
-          <View style={styles.separator} />
-          <Text style={styles.sectionTitle}>Settings</Text>
-          <Row
-            label="Notifications Settings"
-            onPress={() => Alert.alert('Notifications', 'Configure push and in-app notifications. (Coming soon)')}
-          />
-          <Row
-            label="Privacy Settings"
-            onPress={() => Alert.alert('Privacy', 'Control who can see your profile and groups. (Coming soon)')}
-          />
-          <View style={styles.separator} />
-          <Text style={styles.sectionTitle}>Support</Text>
-          <Row
-            label="Help Centre"
-            onPress={() => Alert.alert('Help Centre', 'FAQs and contact support. (Coming soon)')}
-          />
+          {MOCK_ACCOUNT_ROWS.map(({ section, items }) => (
+            <React.Fragment key={section}>
+              <Text style={styles.sectionTitle}>{section}</Text>
+              {items.map((label) => (
+                <Row
+                  key={label}
+                  label={label}
+                  onPress={() => Alert.alert(label, '(Coming soon)')}
+                />
+              ))}
+              <View style={styles.separator} />
+            </React.Fragment>
+          ))}
           <Row
             label="Community Rules"
             onPress={() => Alert.alert('Community Rules', 'Be respectful. No spam. Study spots are for in-person meetups only.')}
           />
           <Row
             label="About"
-            onPress={() => Alert.alert('Study Spot', 'Version 1.0.0\nBalance social and school life by studying together in groups.')}
+            onPress={() => Alert.alert('CommonRoom', 'Version 1.0.0\nBalance social and school life by studying together in groups.')}
           />
           <View style={styles.separator} />
           <TouchableOpacity style={styles.signOutBtn} onPress={signOut}>
@@ -93,13 +86,13 @@ const styles = StyleSheet.create({
     paddingVertical: 14,
     backgroundColor: colors.white,
     borderBottomWidth: 1,
-    borderBottomColor: colors.border,
+    borderBottomColor: colors.borderStrong,
   },
   menuBtn: { padding: 8 },
   menuLine: {
     width: 20,
     height: 2,
-    backgroundColor: colors.textSecondary,
+    backgroundColor: colors.text,
     marginVertical: 2,
     borderRadius: 1,
   },
@@ -107,11 +100,13 @@ const styles = StyleSheet.create({
   scroll: { flex: 1 },
   scrollContent: { padding: 20, paddingBottom: 40 },
   sectionTitle: {
-    fontSize: 18,
+    fontSize: 13,
     fontWeight: '700',
-    color: colors.text,
-    marginBottom: 12,
-    marginTop: 20,
+    color: colors.textMuted,
+    marginBottom: 8,
+    marginTop: 24,
+    textTransform: 'uppercase',
+    letterSpacing: 0.5,
   },
   row: {
     flexDirection: 'row',
@@ -120,8 +115,8 @@ const styles = StyleSheet.create({
     paddingVertical: 14,
     paddingHorizontal: 4,
   },
-  rowLabel: { fontSize: 16, color: colors.text },
-  rowArrow: { fontSize: 22, color: colors.textSecondary },
+  rowLabel: { fontSize: 16, fontWeight: '500', color: colors.text },
+  rowArrow: { fontSize: 20, color: colors.textMuted },
   separator: {
     height: 1,
     backgroundColor: colors.border,
@@ -131,8 +126,10 @@ const styles = StyleSheet.create({
     marginTop: 24,
     paddingVertical: 14,
     alignItems: 'center',
-    backgroundColor: colors.grayLight,
+    backgroundColor: colors.surfaceSubtle,
     borderRadius: 10,
+    borderWidth: 1,
+    borderColor: colors.border,
   },
   signOutText: {
     fontSize: 16,

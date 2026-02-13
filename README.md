@@ -1,4 +1,4 @@
-# Study Spot
+# CommonRoom
 
 A Samsung mobile app (React Native / Expo) that helps students balance social and school life by studying together in groups. Discord-style: admins create groups by interests, school level, and school; members post meetups with **location**, **expectations**, and **timeframe**.
 
