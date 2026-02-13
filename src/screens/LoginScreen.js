@@ -8,6 +8,7 @@ import {
   KeyboardAvoidingView,
   Platform,
   Alert,
+  Image,
   ImageBackground,
 } from 'react-native';
 import colors from '../theme/colors';
@@ -27,7 +28,7 @@ export default function LoginScreen({ onSignIn }) {
             style={styles.container}
           >
             <View style={styles.formCard}>
-              <Text style={styles.title}>CommonRoom</Text>
+              <Image source={require('../../assets/studyspot-logo.png')} style={styles.logo} resizeMode="contain" />
               <Text style={styles.label}>Email</Text>
               <TextInput
                 style={styles.input}
@@ -98,12 +99,12 @@ const styles = StyleSheet.create({
     shadowRadius: 12,
     elevation: 8,
   },
-  title: {
-    fontSize: 20,
-    fontWeight: '700',
-    color: colors.text,
-    marginBottom: 14,
-    textAlign: 'center',
+  logo: {
+    width: 240,
+    height: 140,
+    alignSelf: 'center',
+    marginLeft: 55,
+    marginBottom: -15,
   },
   label: {
     fontSize: 14,

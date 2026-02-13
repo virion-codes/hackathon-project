@@ -1,5 +1,5 @@
 /**
- * CommonRoom color palette
+ * StudySpot color palette
  * Optimized for contrast, accessibility (WCAG AA), and professional aesthetic
  */
 export default {

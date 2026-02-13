@@ -1,7 +1,7 @@
 {
   "expo": {
-    "name": "CommonRoom",
-    "slug": "commonroom",
+    "name": "StudySpot",
+    "slug": "studyspot",
     "version": "1.0.0",
     "orientation": "portrait",
     "userInterfaceStyle": "light",
@@ -12,10 +12,10 @@
     },
     "android": {
       "backgroundColor": "#1a365d",
-      "package": "com.commonroom.app"
+      "package": "com.studyspot.app"
     },
     "ios": {
-      "bundleIdentifier": "com.commonroom.app"
+      "bundleIdentifier": "com.studyspot.app"
     }
   }
 }
