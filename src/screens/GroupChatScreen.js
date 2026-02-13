@@ -417,7 +417,7 @@ export default function GroupChatScreen() {
         >
           <View style={styles.modalContent}>
             <Text style={styles.modalTitle}>
-              {editingPostId ? 'Edit CommonRoom Post' : 'New CommonRoom Post'}
+              {editingPostId ? 'Edit StudySpot Post' : 'New StudySpot Post'}
             </Text>
             <Text style={styles.label}>Title</Text>
             <TextInput

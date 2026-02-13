@@ -60,7 +60,7 @@ export default function AccountScreen() {
           />
           <Row
             label="About"
-            onPress={() => Alert.alert('CommonRoom', 'Version 1.0.0\nBalance social and school life by studying together in groups.')}
+            onPress={() => Alert.alert('StudySpot', 'Version 1.0.0\nBalance social and school life by studying together in groups.')}
           />
           <View style={styles.separator} />
           <TouchableOpacity style={styles.signOutBtn} onPress={signOut}>
