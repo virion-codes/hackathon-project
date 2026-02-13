@@ -1,0 +1,9 @@
+[build]
+  command = "npm run build:web"
+  publish = "web-build"
+
+# SPA fallback - serve index.html for all routes (client-side routing)
+[[redirects]]
+  from = "/*"
+  to = "/index.html"
+  status = 200
